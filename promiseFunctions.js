@@ -17,10 +17,7 @@ export function getWalletAndEmailAddressPromise(_this) {
     var url = niftyGatewayOrigin + '/#/loginwithniftygateway/'
 
     if (_this.network == 'rinkeby') {
-
       var url = niftyGatewayRinkebyOrigin + '/#/loginwithniftygateway/'
-
-
     }
     var timestampOriginal = new Date();
     var timestampInUnixTime = timestampOriginal.getTime();
@@ -70,13 +67,7 @@ export function createRegularTransactionPromise(regularTransactionObject, _this)
      //get url
      var url = niftyGatewayOrigin + '/#/tx'
      if (_this.network == 'rinkeby') {
-
-
       url = niftyGatewayRinkebyOrigin + '/#/tx/'
-
-
-
-
      }
      var timestampOriginal = new Date();
      var timestampInUnixTime = timestampOriginal.getTime();
@@ -115,13 +106,8 @@ export function createOpenSeaPromise(openSeaObject, _this) {
     }
     // url to open
     var url = niftyGatewayOrigin + '/#/purchase'
-
-    var url = 'http://localhost:3001/#/purchase' //delete this
-
     if (_this.network == 'rinkeby') {
       url = 'https://rinkeby.niftygateway.com/#/purchase';
-
-
     }
     var timestampOriginal = new Date();
     var timestampInUnixTime = timestampOriginal.getTime();
@@ -165,14 +151,8 @@ export function createPurchaseForPromise(purchaseForObject, _this) {
    }
    // url to open
    var url = niftyGatewayOrigin + '/#/purchase'
-
-
-
-
    if (_this.network == 'rinkeby') {
      url = niftyGatewayRinkebyOrigin + '/#/purchase/'
-
-
    }
    var timestampOriginal = new Date();
    var timestampInUnixTime = timestampOriginal.getTime();
