@@ -51,7 +51,6 @@ export class NiftyGatewayJS {
           var data_obj = {id: 'purchase for object', data: purchaseForObject}
           popup.postMessage(data_obj, '*');
           counter = counter+1;
-          console.log(purchaseForObject)
           return(window.messagePopUpWindowWithPurchaseForObject(popup, counter, number_of_times, seconds_interval, purchaseForObject));
         }, seconds_interval)
       }

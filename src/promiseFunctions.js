@@ -99,7 +99,6 @@ export function createOpenSeaPromise(openSeaObject, _this) {
     openSeaObject.isOpenSea = true
     //test and clean
     var ret = testAndCleanOpenSeaObject(openSeaObject)
-    console.log(ret)
     if (ret.isValid == false) {
       reject(ret.errorsList);
       return;
@@ -124,14 +123,12 @@ export function createOpenSeaPromise(openSeaObject, _this) {
         if (checkEventOrigin(event.origin) == false) {
           return;
         }
-        console.log('after event check')
         if (event.data.msg_id == 'purchase_res') {
           var info = event.data.response
           var info_res = {
             didSucceed: event.data.didSucceed,
             transactionURL: event.data.transactionURL
           }
-          console.log(event)
           resolve(info_res);
         }
       });
@@ -144,7 +141,6 @@ export function createPurchaseForPromise(purchaseForObject, _this) {
    purchaseForObject.authKey = _this.auth_key
    //test and clean
    var ret = testAndCleanPurchaseForObject(purchaseForObject)
-   console.log(ret)
    if (ret.isValid == false) {
      reject(ret.errorsList);
      return;
@@ -169,14 +165,12 @@ export function createPurchaseForPromise(purchaseForObject, _this) {
        if (checkEventOrigin(event.origin) == false) {
          return;
        }
-       console.log('after event check')
        if (event.data.msg_id == 'purchase_res') {
          var info = event.data.response
          var info_res = {
            didSucceed: event.data.didSucceed,
            transactionURL: event.data.transactionURL
          }
-         console.log(event)
          resolve(info_res);
        }
      });
@@ -184,9 +178,6 @@ export function createPurchaseForPromise(purchaseForObject, _this) {
 }
 
 function checkEventOrigin(origin) {
-  console.log(origin, "given origin")
-  console.log(niftyGatewayRinkebyOrigin, "rinkeby")
-  console.log(origin==niftyGatewayRinkebyOrigin)
   if (origin == "http://localhost:3001" | origin == niftyGatewayOrigin | origin == niftyGatewayRinkebyOrigin) {
     return true
   } else {

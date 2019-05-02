@@ -3,7 +3,6 @@ import { createPurchaseForPromise, createRegularTransactionPromise, getWalletAnd
 // export var niftyGatewayRinkebyOrigin = 'http://localhost:3001';
 // export var niftyGatewayRinkebyOriginNew = 'http://localhost:3001/#/purchase/rinkeby.niftygateway.com'
 
-import { niftyGatewayOrigin, niftyGatewayRinkebyOrigin, niftyGatewayRinkebyOriginNewNew } from './util/config.js';
 export class NiftyGatewayJS {
   constructor(network, auth_key) {
     if (network == 'main' || network == 'rinkeby') {} else {
@@ -51,7 +50,6 @@ export class NiftyGatewayJS {
           };
           popup.postMessage(data_obj, '*');
           counter = counter + 1;
-          console.log(purchaseForObject);
           return window.messagePopUpWindowWithPurchaseForObject(popup, counter, number_of_times, seconds_interval, purchaseForObject);
         }, seconds_interval);
       }
