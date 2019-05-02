@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "babel src --out-dir dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -43,5 +44,9 @@
   "bugs": {
     "url": "https://github.com/nifty-gateway/niftygatewayjs/issues"
   },
-  "homepage": "https://github.com/nifty-gateway/niftygatewayjs#readme"
+  "homepage": "https://github.com/nifty-gateway/niftygatewayjs#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4"
+  }
 }

@@ -1,10 +1,4 @@
-import * as Utils from 'web3-utils';
-
-import messagePopUpWindow from './window/windowFunctions.js';
-import {castArg, prepareArgs,
-retrieveCurrentABIFromEndpoint, locateJSONInterface,
-checkForDisplayInfoReplaceDefaults, generateJSONInterfaceFromSig,
-testAndCleanTransactionObject} from './validationFunctions.js'
+import { testAndCleanTransactionObject } from './validationFunctions.js'
 
 import {createPurchaseForPromise, createRegularTransactionPromise,
 getWalletAndEmailAddressPromise, createOpenSeaPromise} from './promiseFunctions.js'
@@ -13,12 +7,10 @@ getWalletAndEmailAddressPromise, createOpenSeaPromise} from './promiseFunctions.
 // export var niftyGatewayRinkebyOrigin = 'http://localhost:3001';
 // export var niftyGatewayRinkebyOriginNew = 'http://localhost:3001/#/purchase/rinkeby.niftygateway.com'
 
-import {niftyGatewayOrigin, niftyGatewayRinkebyOrigin,niftyGatewayRinkebyOriginNewNew} from './util/config.js';
-
 export class NiftyGatewayJS {
 
-  constructor(network,auth_key) {
-    if (network == 'main' | network == 'rinkeby') {
+  constructor(network, auth_key) {
+    if (network == 'main' || network == 'rinkeby') {
     } else {
       const err = new TypeError("Invalid network - can only be rinkeby or main")
       throw(err)
