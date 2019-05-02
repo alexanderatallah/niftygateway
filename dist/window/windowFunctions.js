@@ -1,4 +1,11 @@
-export function messagePopUpWindow(popup, counter) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.messagePopUpWindow = messagePopUpWindow;
+
+function messagePopUpWindow(popup, counter) {
   //recursion
   if (counter == 10) {
     return "done";

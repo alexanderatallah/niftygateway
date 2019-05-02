@@ -1,15 +1,35 @@
-import { AbiCoder } from 'web3-eth-abi';
-import * as Utils from 'web3-utils';
-import messagePopUpWindow from './window/windowFunctions.js';
-import { castArg, prepareArgs, retrieveCurrentABIFromEndpoint, locateJSONInterface, checkForDisplayInfoReplaceDefaults, generateJSONInterfaceFromSig, testAndCleanTransactionObject, testAndCleanPurchaseForObject, testAndCleanOpenSeaObject } from './validationFunctions.js';
-import { niftyGatewayOrigin, niftyGatewayRinkebyOrigin, niftyGatewayRinkebyOriginNewNew } from './util/config.js';
-const abiCoder = new AbiCoder();
-export function getWalletAndEmailAddressPromise(_this) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getWalletAndEmailAddressPromise = getWalletAndEmailAddressPromise;
+exports.createRegularTransactionPromise = createRegularTransactionPromise;
+exports.createOpenSeaPromise = createOpenSeaPromise;
+exports.createPurchaseForPromise = createPurchaseForPromise;
+
+var _web3EthAbi = require("web3-eth-abi");
+
+var Utils = _interopRequireWildcard(require("web3-utils"));
+
+var _windowFunctions = _interopRequireDefault(require("./window/windowFunctions.js"));
+
+var _validationFunctions = require("./validationFunctions.js");
+
+var _config = require("./util/config.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
+
+var abiCoder = new _web3EthAbi.AbiCoder();
+
+function getWalletAndEmailAddressPromise(_this) {
   // url to open
-  var url = niftyGatewayOrigin + '/#/loginwithniftygateway/';
+  var url = _config.niftyGatewayOrigin + '/#/loginwithniftygateway/';
 
   if (_this.network == 'rinkeby') {
-    var url = niftyGatewayRinkebyOrigin + '/#/loginwithniftygateway/';
+    var url = _config.niftyGatewayRinkebyOrigin + '/#/loginwithniftygateway/';
   }
 
   var timestampOriginal = new Date();
@@ -49,21 +69,22 @@ export function getWalletAndEmailAddressPromise(_this) {
   });
   return promise1;
 }
-export function createRegularTransactionPromise(regularTransactionObject, _this) {
+
+function createRegularTransactionPromise(regularTransactionObject, _this) {
   return new Promise(function (resolve, reject) {
     regularTransactionObject.network = _this.network;
     regularTransactionObject.authKey = _this.auth_key;
-    var ret = testAndCleanTransactionObject(regularTransactionObject);
+    var ret = (0, _validationFunctions.testAndCleanTransactionObject)(regularTransactionObject);
 
     if (ret.isValid == false) {
       reject(ret.errorsList);
     } //get url
 
 
-    var url = niftyGatewayOrigin + '/#/tx';
+    var url = _config.niftyGatewayOrigin + '/#/tx';
 
     if (_this.network == 'rinkeby') {
-      url = niftyGatewayRinkebyOrigin + '/#/tx/';
+      url = _config.niftyGatewayRinkebyOrigin + '/#/tx/';
     }
 
     var timestampOriginal = new Date();
@@ -89,13 +110,14 @@ export function createRegularTransactionPromise(regularTransactionObject, _this)
     });
   });
 }
-export function createOpenSeaPromise(openSeaObject, _this) {
+
+function createOpenSeaPromise(openSeaObject, _this) {
   return new Promise(function (resolve, reject) {
     openSeaObject.network = _this.network;
     openSeaObject.authKey = _this.auth_key;
     openSeaObject.isOpenSea = true; //test and clean
 
-    var ret = testAndCleanOpenSeaObject(openSeaObject);
+    var ret = (0, _validationFunctions.testAndCleanOpenSeaObject)(openSeaObject);
 
     if (ret.isValid == false) {
       reject(ret.errorsList);
@@ -103,7 +125,7 @@ export function createOpenSeaPromise(openSeaObject, _this) {
     } // url to open
 
 
-    var url = niftyGatewayOrigin + '/#/purchase';
+    var url = _config.niftyGatewayOrigin + '/#/purchase';
 
     if (_this.network == 'rinkeby') {
       url = 'https://rinkeby.niftygateway.com/#/purchase';
@@ -136,12 +158,13 @@ export function createOpenSeaPromise(openSeaObject, _this) {
     });
   });
 }
-export function createPurchaseForPromise(purchaseForObject, _this) {
+
+function createPurchaseForPromise(purchaseForObject, _this) {
   return new Promise(function (resolve, reject) {
     purchaseForObject.network = _this.network;
     purchaseForObject.authKey = _this.auth_key; //test and clean
 
-    var ret = testAndCleanPurchaseForObject(purchaseForObject);
+    var ret = (0, _validationFunctions.testAndCleanPurchaseForObject)(purchaseForObject);
 
     if (ret.isValid == false) {
       reject(ret.errorsList);
@@ -149,10 +172,10 @@ export function createPurchaseForPromise(purchaseForObject, _this) {
     } // url to open
 
 
-    var url = niftyGatewayOrigin + '/#/purchase';
+    var url = _config.niftyGatewayOrigin + '/#/purchase';
 
     if (_this.network == 'rinkeby') {
-      url = niftyGatewayRinkebyOrigin + '/#/purchase/';
+      url = _config.niftyGatewayRinkebyOrigin + '/#/purchase/';
     }
 
     var timestampOriginal = new Date();
@@ -184,7 +207,7 @@ export function createPurchaseForPromise(purchaseForObject, _this) {
 }
 
 function checkEventOrigin(origin) {
-  if (origin == "http://localhost:3001" | origin == niftyGatewayOrigin | origin == niftyGatewayRinkebyOrigin) {
+  if (origin == "http://localhost:3001" | origin == _config.niftyGatewayOrigin | origin == _config.niftyGatewayRinkebyOrigin) {
     return true;
   } else {
     return false;

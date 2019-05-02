@@ -1,7 +1,29 @@
-import { AbiCoder } from 'web3-eth-abi';
-import * as Utils from 'web3-utils';
-const abiCoder = new AbiCoder();
-export function testAndCleanOpenSeaObject(TxObject) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.testAndCleanOpenSeaObject = testAndCleanOpenSeaObject;
+exports.testAndCleanPurchaseForObject = testAndCleanPurchaseForObject;
+exports.testAndCleanTransactionObject = testAndCleanTransactionObject;
+exports.testEncoding = testEncoding;
+exports.generateJSONInterfaceFromSig = generateJSONInterfaceFromSig;
+exports.prepareArgsFakeCall = prepareArgsFakeCall;
+exports.locateJSONInterface = locateJSONInterface;
+exports.checkForDisplayInfoReplaceDefaults = checkForDisplayInfoReplaceDefaults;
+exports.prepareArgs = prepareArgs;
+
+var _web3EthAbi = require("web3-eth-abi");
+
+var Utils = _interopRequireWildcard(require("web3-utils"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var abiCoder = new _web3EthAbi.AbiCoder();
+
+function testAndCleanOpenSeaObject(TxObject) {
   var retDict = {};
   retDict.isValid = true;
   retDict.errorsList = []; //must have contract address
@@ -18,7 +40,8 @@ export function testAndCleanOpenSeaObject(TxObject) {
 
   return retDict;
 }
-export function testAndCleanPurchaseForObject(TxObject) {
+
+function testAndCleanPurchaseForObject(TxObject) {
   var retDict = {};
   retDict.isValid = true;
   retDict.errorsList = []; //must have contract address
@@ -37,7 +60,7 @@ export function testAndCleanPurchaseForObject(TxObject) {
   if (typeof TxObject.purchaseForFunction == 'undefined' && typeof TxObject.transactionData == 'undefined') {
     retDict.isValid = false;
     retDict.errorsList.push("Please include either a function signature or transaction data.");
-  } else if (typeof (TxObject.purchaseForFunction == 'string')) {
+  } else if (_typeof(TxObject.purchaseForFunction == 'string')) {
     //check cosmetic info
     var cos = checkForDisplayInfoReplaceDefaults(TxObject);
 
@@ -94,7 +117,8 @@ export function testAndCleanPurchaseForObject(TxObject) {
 
   return retDict;
 }
-export function testAndCleanTransactionObject(TxObject) {
+
+function testAndCleanTransactionObject(TxObject) {
   var retDict = {};
   retDict.isValid = true;
   retDict.errorsList = []; //must have contract address
@@ -108,7 +132,7 @@ export function testAndCleanTransactionObject(TxObject) {
   if (typeof TxObject.regularTransactionFunction == 'undefined' && typeof TxObject.transactionData == 'undefined') {
     retDict.isValid = false;
     retDict.errorsList.push("Please include either a function signature or transaction data.");
-  } else if (typeof (TxObject.regularTransactionFunction == 'string')) {
+  } else if (_typeof(TxObject.regularTransactionFunction == 'string')) {
     //check cosmetic info
     var cos = checkForDisplayInfoReplaceDefaults(TxObject);
 
@@ -165,7 +189,8 @@ export function testAndCleanTransactionObject(TxObject) {
 
   return retDict;
 }
-export function testEncoding(inputs, function_sig, args) {
+
+function testEncoding(inputs, function_sig, args) {
   var retDict = {};
 
   try {
@@ -178,7 +203,8 @@ export function testEncoding(inputs, function_sig, args) {
     return retDict;
   }
 }
-export function generateJSONInterfaceFromSig(fun_sig) {
+
+function generateJSONInterfaceFromSig(fun_sig) {
   var encodingDict = {};
   var fun_sig = fun_sig.replace(/ /g, ''); //get location of ()
 
@@ -230,7 +256,8 @@ export function generateJSONInterfaceFromSig(fun_sig) {
   encodingDict.sigExists = true;
   return encodingDict;
 }
-export function prepareArgsFakeCall(arg_list, abi_inputs, user_address) {
+
+function prepareArgsFakeCall(arg_list, abi_inputs, user_address) {
   //errors encountered
   var errors_encountered = false; //prepare new list to return - errors or preapred args
 
@@ -282,7 +309,8 @@ export function prepareArgsFakeCall(arg_list, abi_inputs, user_address) {
     return retDict;
   }
 }
-export function locateJSONInterface(_jsonInterface, function_sig) {
+
+function locateJSONInterface(_jsonInterface, function_sig) {
   var returnObj = {
     wasLocated: false,
     inputs: null
@@ -328,7 +356,7 @@ function castArg(input_abi_type, arg) {
       } else {
         var retDict = {};
         retDict.errorOccurred = true;
-        retDict.message = "Expected int, but got " + String(typeof arg) + " instead.";
+        retDict.message = "Expected int, but got " + String(_typeof(arg)) + " instead.";
         return retDict;
       }
 
@@ -340,7 +368,7 @@ function castArg(input_abi_type, arg) {
       } else {
         var retDict = {};
         retDict.errorOccurred = true;
-        retDict.message = "Expected int, but got " + String(typeof arg) + " instead.";
+        retDict.message = "Expected int, but got " + String(_typeof(arg)) + " instead.";
         return retDict;
       }
 
@@ -354,7 +382,7 @@ function castArg(input_abi_type, arg) {
   }
 }
 
-export function checkForDisplayInfoReplaceDefaults(object) {
+function checkForDisplayInfoReplaceDefaults(object) {
   var errorsList = [];
   var title = object.displayTitle;
   var imageURL = object.displayImageURL;
@@ -387,7 +415,8 @@ export function checkForDisplayInfoReplaceDefaults(object) {
     return retDict;
   }
 }
-export function prepareArgs(arg_list, abi_inputs, user_address) {
+
+function prepareArgs(arg_list, abi_inputs, user_address) {
   //errors encountered
   var errors_encountered = false; //prepare new list to return - errors or preapred args
 
